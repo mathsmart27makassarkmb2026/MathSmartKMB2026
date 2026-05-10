@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MathSmart SMP - Portal Matematika Terpadu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-gray-950 text-white font-jakarta">
+<div id="app">
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center font-bold text-lg">M</div>
+        <span class="text-xl font-bold tracking-tight">Math<span class="text-violet-400">Smart</span></span>
+      </div>
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+        <a onclick="goToPage('page-beranda')" class="hover:text-white transition-colors cursor-pointer">
+  Beranda
+</a>
+        <a onclick="goToPage('page-materi')"class="hover:text-white transition-colors">Materi</a>
+        <a onclick="goToPage('page-video')"class="hover:text-white transition-colors">Video</a>
+        <a onclick="goToPage('page-quiz')"class="hover:text-white transition-colors">Quiz</a>
+        <a onclick="goToPage('page-game')"class="hover:text-white transition-colors">Game</a>
+        <a onclick="goToPage('page-nilai')"class="hover:text-white transition-colors">Nilai</a>
+        <a onclick="goToPage('page-info')"class="hover:text-white transition-colors">Informasi</a>
+      </div>
+     <!-- SEARCH BAR -->
+<div class="hidden md:flex items-center bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 w-64">
+  <svg class="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"/>
+  </svg>
+
+  <input 
+    type="text" 
+    id="searchInput"
+    placeholder="Cari materi, video, quiz..."
+    class="bg-transparent outline-none text-sm text-white placeholder-gray-400 w-full"
+    onkeyup="handleSearch(this.value)"
+  />
+</div>
+      <button id="menuBtn" class="md:hidden p-2 text-gray-400" onclick="toggleMenu()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-gray-900 border-t border-gray-800 px-6 py-4 space-y-3">
+      <a onclick="goToPage('page-materi');toggleMenu()"class="block text-gray-300 hover:text-white py-2" >Materi</a>
+      <a onclick="goToPage('page-video');toggleMenu()"class="block text-gray-300 hover:text-white py-2" >Video</a>
+      <a onclick="goToPage('page-quiz');toggleMenu()"class="block text-gray-300 hover:text-white py-2" >Quiz</a>
+      <a onclick="goToPage('page-info');toggleMenu()"class="block text-gray-300 hover:text-white py-2" >Informasi</a>
+    </div>
+  </nav>
+  <div id="searchResult"
+  class="hidden absolute top-20 right-6 w-80 bg-gray-900 border border-gray-700 rounded-xl shadow-xl z-50 max-h-80 overflow-y-auto">
+</div>
+<section id="page-beranda" class="page active">
+  <!-- HERO -->
+  <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+    <div class="hero-bg absolute inset-0"></div>
+    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      <div class="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/20 rounded-full px-4 py-2 text-violet-300 text-sm font-medium mb-8">
+        <span class="w-2 h-2 bg-violet-400 rounded-full animate-pulse"></span>
+        Platform Belajar Matematika SMP
+      </div>
+      <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+        Kuasai Matematika<br />
+        <span class="gradient-text">dengan Cara Seru</span>
+      </h1>
+      <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+        Materi lengkap Kelas 7–9, video pembelajaran, dan quiz interaktif untuk Semester 1 & 2. Belajar lebih mudah, lebih menyenangkan!
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button onclick="goToPage('page-materi')" class="bg-violet-600 hover:bg-violet-500 text-white font-bold px-8 py-4 rounded-2xl transition-all text-lg hover:scale-105">
+          Mulai Belajar Sekarang
+        </button>
+        <button onclick="goToPage('page-quiz')" class="bg-gray-800 hover:bg-gray-700 text-white font-bold px-8 py-4 rounded-2xl transition-all text-lg border border-gray-700">
+          Coba Quiz
+        </button>
+      </div>
+      <!-- Stats -->
+      <div class="grid grid-cols-3 gap-6 mt-16 max-w-lg mx-auto">
+        <div class="text-center">
+          <div class="text-3xl font-extrabold text-violet-400">3</div>
+          <div class="text-gray-500 text-sm mt-1">Tingkat Kelas</div>
+        </div>
+        <div class="text-center border-x border-gray-800">
+          <div class="text-3xl font-extrabold text-violet-400">24+</div>
+          <div class="text-gray-500 text-sm mt-1">Topik Materi</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-extrabold text-violet-400">50+</div>
+          <div class="text-gray-500 text-sm mt-1">Soal Latihan</div>
+        </div>
+      </div>
+    </div>
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+    </div>
+  </section>
+  <!-- AKSES CEPAT -->
+<section class="py-20 px-6">
+  <div class="max-w-6xl mx-auto text-center">
+
+    <div class="section-badge mb-4">Fitur Utama</div>
+    <h2 class="text-4xl font-extrabold mb-6">
+      Akses <span class="gradient-text">Cepat</span>
+    </h2>
+    <p class="text-gray-400 mb-12">
+      Pilih fitur yang ingin kamu gunakan untuk mulai belajar matematika dengan mudah.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Materi -->
+      <div onclick="goToPage('page-materi')" class="materi-card text-left">
+        <h3 class="text-xl font-bold mb-2">📚 Materi</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          Pelajari materi lengkap dari kelas 7 sampai 9.
+        </p>
+        <button class="btn-baca">Masuk Materi →</button>
+      </div>
+
+      <!-- Video -->
+      <div onclick="goToPage('page-video')" class="materi-card text-left">
+        <h3 class="text-xl font-bold mb-2">🎥 Video</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          Tonton video pembelajaran yang mudah dipahami.
+        </p>
+        <button class="btn-baca">Tonton Video →</button>
+      </div>
+
+      <!-- Quiz -->
+      <div onclick="goToPage('page-quiz')" class="materi-card text-left">
+        <h3 class="text-xl font-bold mb-2">📝 Quiz</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          Uji pemahamanmu dengan soal interaktif.
+        </p>
+        <button class="btn-baca">Mulai Quiz →</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- MOTIVASI -->
+<section class="py-20 px-6 bg-gray-900/50">
+  <div class="max-w-4xl mx-auto text-center">
+
+    <div class="section-badge mb-4">Motivasi Belajar</div>
+    <h2 class="text-4xl font-extrabold mb-6">
+      Belajar <span class="gradient-text">Matematika</span> Itu Bisa Menyenangkan
+    </h2>
+
+    <p class="text-gray-300 leading-relaxed text-lg">
+      Matematika bukan tentang siapa yang paling cepat, tetapi siapa yang mau terus mencoba.
+      Setiap kesalahan adalah bagian dari proses belajar.
+    </p>
+
+    <p class="text-gray-400 mt-4 leading-relaxed">
+      Jangan takut dengan angka, karena semakin sering kamu berlatih,
+      semakin mudah kamu memahaminya.
+    </p>
+
+    <p class="text-gray-500 mt-4 text-sm">
+      Ingat, kemampuan matematika tidak ditentukan oleh bakat,
+      tetapi oleh usaha dan konsistensi.
+    </p>
+
+  </div>
+</section>
+</section>
+  <!-- MATERI SECTION -->
+   <section id="page-materi" class="page">
+  <section id="materi" class="py-24 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Materi <span class="gradient-text">Matematika</span></h2>
+        <p class="text-gray-400 text-lg max-w-xl mx-auto">Pilih kelas dan semester untuk mengakses materi pembelajaran yang telah disiapkan secara lengkap.</p>
+      </div>
+
+      <!-- Class Tabs -->
+      <div class="flex flex-wrap gap-3 justify-center mb-10">
+        <button onclick="setSemua()" id="tabAll"
+    class="class-tab px-6 py-3 rounded-xl font-semibold text-sm transition-all active-tab">
+    Semua
+  </button>
+        <button onclick="setKelas(7)" id="tab7" class="class-tab px-6 py-3 rounded-xl font-semibold text-sm transition-all">Kelas 7</button>
+        <button onclick="setKelas(8)"id="tab8" class="class-tab px-6 py-3 rounded-xl font-semibold text-sm transition-all">Kelas 8</button>
+        <button onclick="setKelas(9)" id="tab9" class="class-tab px-6 py-3 rounded-xl font-semibold text-sm transition-all">Kelas 9</button>
+      </div>
+
+      <!-- Semester Tabs -->
+      <div class="flex gap-3 justify-center mb-12">
+        <button onclick="setSemua()" id="semAll"
+  class="sem-tab px-6 py-3 rounded-xl font-semibold text-sm transition-all active-sem">
+  Semua
+</button>
+    <button onclick="setSemester('sem1')" id="sem1"
+  class="sem-tab px-6 py-3 rounded-xl font-semibold text-sm transition-all">
+  Semester 1
+</button>
+
+<button onclick="setSemester('sem2')" id="sem2"
+  class="sem-tab px-6 py-3 rounded-xl font-semibold text-sm transition-all">
+  Semester 2
+</button>
+      </div>
+      <!-- Materi Cards -->
+      <div id="materiGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
+</section>
+  <!-- MATERI DETAIL MODAL -->
+  <div id="materiModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div class="bg-gray-900 border border-gray-700 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto">
+      <div class="flex items-center justify-between p-6 border-b border-gray-700">
+        <h3 id="modalTitle" class="text-xl font-bold"></h3>
+        <button onclick="closeModal('materiModal')" class="text-gray-400 hover:text-white p-1">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div id="modalContent" class="p-6 space-y-4 text-gray-300 leading-relaxed"></div>
+    </div>
+  </div>
+  <!-- VIDEO SECTION -->
+   <section id="page-video" class="page">
+  <section id="video" class="py-24 px-6 bg-gray-900/50">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Video <span class="gradient-text">Pembelajaran</span></h2>
+        <p class="text-gray-400 text-lg max-w-xl mx-auto">Tonton video penjelasan dari guru-guru terbaik untuk memahami konsep matematika dengan lebih mudah.</p>
+      </div>
+
+      <!-- Video Filter -->
+      <div class="flex flex-wrap gap-3 justify-center mb-10">
+        <button onclick="filterVideo('all', event)" id="vAll" class="vid-filter active-vid px-5 py-2 rounded-xl font-medium text-sm transition-all">Semua</button>
+        <button onclick="filterVideo('7', event)" class="vid-filter px-5 py-2 rounded-xl font-medium text-sm transition-all">Kelas 7</button>
+        <button onclick="filterVideo('8', event)" class="vid-filter px-5 py-2 rounded-xl font-medium text-sm transition-all">Kelas 8</button>
+        <button onclick="filterVideo('9', event)" class="vid-filter px-5 py-2 rounded-xl font-medium text-sm transition-all">Kelas 9</button>
+      </div>
+
+      <div id="videoGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
+</section>
+  <!-- VIDEO MODAL -->
+  <div id="videoModal" class="fixed inset-0 z-[9999] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    
+    <div class="bg-gray-900 border border-gray-700 rounded-2xl max-w-3xl w-full">
+      <div class="flex items-center justify-between p-4 border-b border-gray-700">
+        <h3 id="videoModalTitle" class="font-bold"></h3>
+        <button onclick="closeModal('videoModal'); stopVideo()" class="text-gray-400 hover:text-white p-1">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="p-4">
+        <div class="aspect-video bg-black rounded-xl overflow-hidden">
+          <iframe
+  id="videoFrame"
+  width="100%"
+  height="100%"
+  frameborder="0"
+  allow="autoplay; encrypted-media"
+  allowfullscreen>
+</iframe>
+        </div>
+        <p id="videoDesc" class="mt-3 text-gray-400 text-sm"></p>
+      </div>
+    </div>
+  </div>
+
+ <!-- ========================= -->
+<!-- QUIZ PAGE -->
+<!-- ========================= -->
+<section id="page-quiz" class="page hidden">
+
+  <section class="py-24 px-6">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- TITLE -->
+      <div class="text-center mb-14">
+        <h2 class="text-4xl md:text-5xl font-extrabold mb-4">
+          Quiz <span class="gradient-text">Interaktif</span>
+        </h2>
+
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+          Latih kemampuan matematika melalui quiz interaktif berdasarkan materi pembelajaran.
+        </p>
+      </div>
+
+      <!-- ================================= -->
+      <!-- CARD BESAR QUIZ -->
+      <!-- ================================= -->
+      <div class="mb-16">
+
+        <div class="relative overflow-hidden rounded-3xl border border-violet-500/20 bg-gradient-to-br from-violet-700 to-indigo-900 p-10">
+
+          <!-- Background Blur -->
+          <div class="absolute top-0 right-0 w-72 h-72 bg-violet-500/20 rounded-full blur-3xl"></div>
+
+          <div class="relative z-10">
+
+            <div class="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full text-sm mb-6">
+              🚀 Mode Cepat Quiz
+            </div>
+
+            <h3 class="text-3xl md:text-4xl font-extrabold mb-4">
+              Mulai Quiz Matematika
+            </h3>
+
+            <p class="text-gray-200 max-w-2xl leading-relaxed mb-8">
+              Pilih kelas, semester, dan tingkat kesulitan untuk memulai quiz otomatis.
+              Cocok untuk latihan cepat dan menguji pemahamanmu.
+            </p>
+
+            <!-- QUIZ SETUP -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+
+              <!-- KELAS -->
+              <div>
+                <label class="text-sm text-gray-300">Kelas</label>
+
+                <select id="quizClass"
+                  class="w-full mt-2 bg-gray-900 border border-gray-700 p-3 rounded-xl text-white">
+                  <option value="7">Kelas 7</option>
+                  <option value="8">Kelas 8</option>
+                  <option value="9">Kelas 9</option>
+                </select>
+              </div>
+
+              <!-- SEMESTER -->
+              <div>
+                <label class="text-sm text-gray-300">Semester</label>
+
+                <select id="quizSem"
+                  class="w-full mt-2 bg-gray-900 border border-gray-700 p-3 rounded-xl text-white">
+                  <option value="1">Semester 1</option>
+                  <option value="2">Semester 2</option>
+                </select>
+              </div>
+
+              <!-- LEVEL -->
+              <div>
+                <label class="text-sm text-gray-300">Level</label>
+
+                <select id="quizLevel"
+                  class="w-full mt-2 bg-gray-900 border border-gray-700 p-3 rounded-xl text-white">
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+              </div>
+              <!-- MATERI -->
+              <div>
+                <label class="text-sm text-gray-200">Materi</label>
+                <select id="quizTopic" class="w-full mt-2 bg-gray-900 border border-violet-400/30 p-3 rounded-xl text-white">
+                  <option value=""> Pilih materi </option>
+                 </select>
+                </div>
+            </div>
+
+            <!-- BUTTON -->
+          <button onclick="showMateriQuiz()"
+  class="bg-white text-violet-700 hover:bg-gray-100 px-8 py-3 rounded-2xl font-bold transition">
+  Cari Quiz →
+</button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================= -->
+      <!-- QUIZ PER MATERI -->
+      <!-- ================================= -->
+      <div>
+
+        <div class="flex items-center justify-between mb-8 flex-wrap gap-4">
+
+          <div>
+            <h3 class="text-3xl font-extrabold">
+              Quiz Berdasarkan Materi
+            </h3>
+
+            <p class="text-gray-400 mt-2">
+              Pilih materi yang ingin kamu latih.
+            </p>
+          </div>
+
+          <div class="text-sm text-violet-400 font-semibold">
+            📚 Semua Materi Tersedia
+          </div>
+
+        </div>
+
+        <!-- GRID CARD -->
+        <div id="materiQuizGrid"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        </div>
+      </div>
+
+      <!-- ================================= -->
+      <!-- QUIZ PLAY -->
+      <!-- ================================= -->
+      <div id="quizPlay"
+        class="hidden bg-gray-900 border border-gray-700 rounded-3xl p-8 mt-16">
+
+        <div class="flex justify-between items-center mb-8">
+
+          <div class="text-gray-400">
+            Soal
+            <span id="qNum" class="text-white font-bold">1</span>
+            /
+            <span id="qTotal">0</span>
+          </div>
+
+          <div class="bg-violet-500/10 text-violet-300 px-4 py-2 rounded-xl text-sm font-bold">
+            ⏱ <span id="timer">30</span> Detik
+          </div>
+
+        </div>
+
+        <!-- QUESTION -->
+        <div id="quizQuestion"
+          class="text-2xl font-bold mb-8 leading-relaxed">
+        </div>
+
+        <!-- OPTIONS -->
+        <div id="quizOptions"
+          class="space-y-4">
+        </div>
+<div id="explanationBox"
+     class="mt-5 p-4 rounded-xl border-l-4 border-violet-400
+            bg-violet-50 opacity-0 translate-y-2 transition-all duration-500">
+</div>
+        <!-- NEXT -->
+        <button id="nextBtn"
+          class="hidden mt-8 bg-violet-600 hover:bg-violet-500 px-8 py-3 rounded-2xl font-bold transition-all"
+          onclick="nextQuestion()">
+
+          Soal Berikutnya →
+        </button>
+
+      </div>
+
+      <!-- ================================= -->
+      <!-- RESULT -->
+      <!-- ================================= -->
+      <div id="quizResult"
+        class="hidden bg-gray-900 border border-gray-700 rounded-3xl p-10 text-center mt-16">
+
+        <div class="text-6xl mb-4">🏆</div>
+
+        <h3 class="text-3xl font-extrabold mb-4">
+          Quiz Selesai
+        </h3>
+<div id="resultEmoji" class="text-6xl mb-4"></div>
+        <div id="scoreNum"
+          class="text-6xl font-extrabold text-violet-400 mb-4">
+        </div>
+
+        <p id="resultMsg"
+          class="text-gray-400 mb-8 text-lg">
+        </p>
+
+        <button onclick="resetQuiz()"
+          class="bg-violet-600 hover:bg-violet-500 px-8 py-4 rounded-2xl font-bold transition-all hover:scale-105">
+
+          Ulangi Quiz
+        </button>
+
+      </div>
+
+    </div>
+  </section>
+
+</section>
+<!-- ========================= -->
+<!-- PAGE NILAI -->
+<!-- ========================= -->
+<section id="page-nilai" class="page hidden">
+
+  <section class="py-24 px-6">
+
+    <div class="max-w-6xl mx-auto">
+
+      <!-- TITLE -->
+      <div class="text-center mb-14">
+        <h2 class="text-4xl md:text-5xl font-extrabold mb-4">
+          Riwayat <span class="gradient-text">Nilai Quiz</span>
+        </h2>
+
+        <p class="text-gray-400 text-lg">
+          Semua hasil quiz yang pernah dikerjakan akan tampil di sini.
+        </p>
+      </div>
+
+      <!-- TABLE -->
+      <div class="overflow-x-auto bg-gray-900 border border-gray-700 rounded-3xl">
+
+        <table class="w-full text-left">
+
+          <thead class="bg-gray-800 text-gray-300">
+            <tr>
+              <th class="p-4">Tanggal</th>
+              <th class="p-4">Kelas</th>
+              <th class="p-4">Semester</th>
+              <th class="p-4">Materi</th>
+              <th class="p-4">Level</th>
+              <th class="p-4">Nilai</th>
+            </tr>
+          </thead>
+
+          <tbody id="nilaiBody">
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</section>
+<!-- GAME SECTION -->
+<section id="page-game" class="page hidden">
+
+<section class="py-20 px-6 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 text-white">
+
+  <div class="max-w-5xl mx-auto text-center">
+
+    <!-- TITLE -->
+    <h2 class="text-4xl font-extrabold mb-2">
+      🪢 Math Tug of War
+    </h2>
+
+    <p class="text-gray-400 mb-6">
+      Jawab soal untuk menarik garis ke arah tim kamu
+    </p>
+    <!-- START -->
+   <button id="startGameBtn"
+      class="px-6 py-3 bg-violet-600 rounded-xl font-semibold mb-6">
+      ▶ Mulai Game
+    </button>
+<button id="stopGame"
+  class="px-6 py-3 bg-red-600 rounded-xl font-semibold ml-3">
+  ⏸ Stop Game
+</button>
+  <!-- TIMER -->
+  <div class="text-2xl font-bold mb-6">
+    ⏱ <span id="gameTimer">0</span> detik
+  </div>
+<div class="flex justify-between text-white mb-4 text-xl font-bold">
+
+  <div class="bg-green-500/20 px-4 py-2 rounded-xl">
+    TIM A: <span id="scoreA">0</span>
+  </div>
+
+  <div class="bg-yellow-500/20 px-4 py-2 rounded-xl">
+    TIM B: <span id="scoreB">0</span>
+  </div>
+</div>
+  <!-- ARENA -->
+  <div class="relative min-h-[320px] rounded-3xl overflow-visible flex border border-white/10">
+
+    <!-- TIM A -->
+    <div class="w-1/2 bg-gradient-to-r from-green-500/20 to-green-900/10 relative flex items-center justify-center">
+      <div class="absolute top-3 left-3 text-green-400 font-bold">
+        TIM A
+      </div>
+    </div>
+
+    <!-- TIM B -->
+    <div class="w-1/2 bg-gradient-to-l from-yellow-500/20 to-yellow-900/10 relative flex items-center justify-center">
+      <div class="absolute top-3 right-3 text-yellow-400 font-bold">
+        TIM B
+      </div>
+    </div>
+
+    <!-- CENTER LINE -->
+    <div class="absolute left-1/2 top-0 h-full w-1 bg-white/20"></div>
+
+    <!-- ROPE -->
+    <div id="rope"
+      class="absolute top-1/2 left-1/2 h-5 w-28 rounded-full 
+      bg-gradient-to-r from-green-400 via-white to-yellow-400 
+      shadow-xl transition-all duration-500"
+      style="transform: translate(-50%, -50%);">
+    </div>
+
+  </div>
+
+  <!-- QUESTION -->
+  <h2 id="question" class="text-2xl mt-6"></h2>
+
+  <!-- INPUT -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+
+    <!-- TIM A -->
+    <div class="bg-green-500/10 p-5 rounded-2xl border border-green-500/30">
+      <p class="text-green-400 font-semibold mb-2">Jawaban Tim A</p>
+      <input id="inputA" class="w-full p-3 bg-gray-900 rounded-lg outline-none focus:ring-2 focus:ring-green-400">
+      <button onclick="submit('A')" class="mt-3 w-full bg-green-500 hover:bg-green-600 py-2 rounded-lg font-semibold">
+        Jawab A
+      </button>
+    </div>
+
+    <!-- TIM B -->
+    <div class="bg-yellow-500/10 p-5 rounded-2xl border border-yellow-500/30">
+      <p class="text-yellow-400 font-semibold mb-2">Jawaban Tim B</p>
+      <input id="inputB" class="w-full p-3 bg-gray-900 rounded-lg outline-none focus:ring-2 focus:ring-yellow-400">
+      <button onclick="submit('B')" class="mt-3 w-full bg-yellow-500 hover:bg-yellow-600 py-2 rounded-lg font-semibold">
+        Jawab B
+      </button>
+    </div>
+
+  </div>
+
+</div>
+  </div>
+</section>
+<div id="winModal" class="fixed inset-0 hidden items-center justify-center bg-black/70 z-50">
+
+  <div class="bg-gray-900 p-10 rounded-2xl text-center shadow-xl">
+
+    <h1 id="winText" class="text-3xl font-bold mb-4"></h1>
+
+    <button onclick="restartGame()"
+      class="px-6 py-2 bg-violet-600 rounded-xl">
+      Main Lagi
+    </button>
+
+  </div>
+
+</div>
+</section>
+<section id="page-tentang" class="page hidden bg-gray-950 text-gray-200">
+
+  <section class="py-24 px-6 text-center">
+
+    <!-- HEADER -->
+    <h2 class="text-5xl font-extrabold mb-6 text-white">
+  Tentang <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">MathSmart</span>
+</h2>
+
+<p class="text-gray-300 max-w-3xl mx-auto leading-relaxed">
+  MathSmart adalah platform pembelajaran matematika interaktif berbasis game edukasi,
+  yang menggabungkan materi, quiz otomatis, video pembelajaran, dan sistem kompetisi
+  berbasis skor untuk meningkatkan motivasi belajar siswa.
+</p>
+
+<p class="text-gray-400 mt-4 max-w-3xl mx-auto">
+  Salah satu fitur utama adalah <span class="text-violet-300 font-semibold">Tug of War Math Game</span>,
+  sebuah permainan kompetitif di mana siswa menjawab soal untuk mendorong tim mereka menuju kemenangan.
+</p>
+    <!-- =========================
+     STATS CARD
+========================= -->
+<div class="grid md:grid-cols-4 gap-5 mt-14 max-w-6xl mx-auto">
+
+  <div class="bg-gradient-to-br from-violet-500/20 to-purple-500/10 border border-violet-400/30 rounded-2xl p-6 text-center">
+    <h3 class="text-white font-bold text-lg">📅 Tahun</h3>
+    <p class="text-gray-300 mt-1">2026</p>
+  </div>
+
+  <div class="bg-gradient-to-br from-cyan-500/20 to-blue-500/10 border border-cyan-400/30 rounded-2xl p-6 text-center">
+    <h3 class="text-white font-bold text-lg">💻 Platform</h3>
+    <p class="text-gray-300 mt-1">Web Application</p>
+  </div>
+
+  <div class="bg-gradient-to-br from-pink-500/20 to-rose-500/10 border border-pink-400/30 rounded-2xl p-6 text-center">
+    <h3 class="text-white font-bold text-lg">📚 Target</h3>
+    <p class="text-gray-300 mt-1">SMP Kelas 7–9</p>
+  </div>
+
+  <div class="bg-gradient-to-br from-emerald-500/20 to-green-500/10 border border-emerald-400/30 rounded-2xl p-6 text-center">
+    <h3 class="text-white font-bold text-lg">🧠 Mode</h3>
+    <p class="text-gray-300 mt-1">Quiz + Game Interaktif</p>
+  </div>
+
+</div>
+
+<!-- =========================
+     GAME INFO
+========================= -->
+<div class="grid md:grid-cols-4 gap-5 mt-10 max-w-6xl mx-auto">
+
+  <div class="bg-violet-500/10 border border-violet-400/30 rounded-2xl p-6 text-center">
+    <h3 class="text-white font-bold text-lg">🎮 Game Mode</h3>
+    <p class="text-gray-300 mt-1">Tug of War Math</p>
+  </div>
+
+  <div class="bg-cyan-500/10 border border-cyan-400/30 rounded-2xl p-6 text-center">
+    <h3 class="text-white font-bold text-lg">⚔️ Mode</h3>
+    <p class="text-gray-300 mt-1">2 Player Competitive</p>
+  </div>
+
+  <div class="bg-pink-500/10 border border-pink-400/30 rounded-2xl p-6 text-center">
+    <h3 class="text-white font-bold text-lg">⏱ Sistem</h3>
+    <p class="text-gray-300 mt-1">Timer + Score Battle</p>
+  </div>
+
+  <div class="bg-emerald-500/10 border border-emerald-400/30 rounded-2xl p-6 text-center">
+    <h3 class="text-white font-bold text-lg">🧠 Level</h3>
+    <p class="text-gray-300 mt-1">Easy - Medium - Hard</p>
+  </div>
+
+</div>
+
+<!-- =========================
+     FITUR UTAMA
+========================= -->
+<div class="mt-16 max-w-6xl mx-auto text-center">
+
+  <h3 class="text-3xl font-bold text-white mb-10">
+    ⚡ Fitur Utama MathSmart
+  </h3>
+
+  <div class="grid md:grid-cols-3 gap-6 text-left">
+
+    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+      <h4 class="text-violet-300 font-semibold mb-2">📝 Quiz Interaktif</h4>
+      <p class="text-gray-400 text-sm">
+        Soal otomatis dengan pembahasan langsung dan sistem evaluasi jawaban.
+      </p>
+    </div>
+
+    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+      <h4 class="text-cyan-300 font-semibold mb-2">📊 Evaluasi Nilai</h4>
+      <p class="text-gray-400 text-sm">
+        Sistem skor otomatis lengkap dengan hasil belajar siswa.
+      </p>
+    </div>
+
+    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+      <h4 class="text-pink-300 font-semibold mb-2">📚 Materi Lengkap</h4>
+      <p class="text-gray-400 text-sm">
+        Materi kelas 7–9 dari bilangan hingga geometri & statistika.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<!-- =========================
+     FITUR GAME
+========================= -->
+<div class="mt-16 max-w-6xl mx-auto text-center">
+
+  <h3 class="text-3xl font-bold text-white mb-10">
+    🎮 Fitur Game Edukasi
+  </h3>
+
+  <div class="grid md:grid-cols-3 gap-6 text-left">
+
+    <div class="bg-gray-900 border border-violet-500/30 rounded-2xl p-6">
+      <h4 class="text-violet-300 font-semibold mb-2">🪢 Tug of War Game</h4>
+      <p class="text-gray-400 text-sm">
+        Game kompetitif berbasis jawaban cepat antar 2 tim.
+      </p>
+    </div>
+
+    <div class="bg-gray-900 border border-cyan-500/30 rounded-2xl p-6">
+      <h4 class="text-cyan-300 font-semibold mb-2">⚡ Real-time Score</h4>
+      <p class="text-gray-400 text-sm">
+        Skor langsung mempengaruhi posisi tali di arena.
+      </p>
+    </div>
+
+    <div class="bg-gray-900 border border-pink-500/30 rounded-2xl p-6">
+      <h4 class="text-pink-300 font-semibold mb-2">🧠 Adaptive Question</h4>
+      <p class="text-gray-400 text-sm">
+        Soal acak dari operasi dasar hingga campuran.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<!-- =========================
+     TEKNOLOGI
+========================= -->
+<div class="mt-16 max-w-5xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
+
+  <h3 class="text-2xl font-bold text-white mb-6 text-center">
+    🛠 Teknologi yang Digunakan
+  </h3>
+
+  <div class="flex flex-wrap gap-3 justify-center">
+
+    <span class="px-4 py-2 bg-orange-500/20 border border-orange-400/30 rounded-full text-sm">HTML5</span>
+    <span class="px-4 py-2 bg-blue-500/20 border border-blue-400/30 rounded-full text-sm">CSS3 / TailwindCSS</span>
+    <span class="px-4 py-2 bg-yellow-500/20 border border-yellow-400/30 rounded-full text-sm">JavaScript (Vanilla)</span>
+    <span class="px-4 py-2 bg-cyan-500/20 border border-cyan-400/30 rounded-full text-sm">DOM Manipulation</span>
+    <span class="px-4 py-2 bg-pink-500/20 border border-pink-400/30 rounded-full text-sm">Game Logic Engine</span>
+
+  </div>
+</div>
+
+<!-- =========================
+     PANDUAN PENGGUNAAN
+========================= -->
+<div class="mt-16 max-w-5xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
+
+  <h3 class="text-2xl font-bold text-white mb-6 text-center">
+    📖 Cara Menggunakan MathSmart
+  </h3>
+
+  <ol class="text-gray-300 space-y-3 list-decimal list-inside">
+
+    <li>Pilih menu materi, quiz, atau game.</li>
+    <li>Untuk game Tug of War, klik tombol <b>Mulai Game</b>.</li>
+    <li>Jawab soal matematika secepat mungkin.</li>
+    <li>Jawaban benar akan menggeser posisi tim kamu.</li>
+    <li>Tim yang mencapai batas posisi menang lebih dulu.</li>
+
+  </ol>
+
+</div>
+
+<!-- =========================
+     TOPIK
+========================= -->
+<div class="mt-16 max-w-5xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8">
+
+  <h3 class="text-2xl font-bold text-white mb-6 text-center">
+    📌 Topik Pembelajaran
+  </h3>
+
+  <div class="flex flex-wrap gap-3 justify-center">
+
+    <span class="px-4 py-2 bg-violet-500/20 border border-violet-400/30 rounded-full text-sm">Bilangan & Operasi</span>
+    <span class="px-4 py-2 bg-cyan-500/20 border border-cyan-400/30 rounded-full text-sm">Pecahan & Desimal</span>
+    <span class="px-4 py-2 bg-pink-500/20 border border-pink-400/30 rounded-full text-sm">Aljabar</span>
+    <span class="px-4 py-2 bg-emerald-500/20 border border-emerald-400/30 rounded-full text-sm">Geometri</span>
+    <span class="px-4 py-2 bg-yellow-500/20 border border-yellow-400/30 rounded-full text-sm">Statistika</span>
+    <span class="px-4 py-2 bg-indigo-500/20 border border-indigo-400/30 rounded-full text-sm">Pythagoras</span>
+
+  </div>
+
+</div>
+
+    <!-- =========================
+         TIM PENGEMBANG
+    ========================= -->
+   <div class="mt-20 max-w-6xl mx-auto">
+
+  <h3 class="text-3xl font-bold text-white mb-10 text-center">
+    👩‍💻 Tim Pengembang
+  </h3>
+
+  <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+    <!-- ================= RIFQAH ================= -->
+    <div class="bg-gradient-to-br from-violet-500/10 to-purple-500/5 border border-violet-400/30 rounded-2xl p-6 text-center hover:scale-105 transition">
+
+      <div class="w-24 h-24 mx-auto rounded-full overflow-hidden border border-violet-400/40 mb-4 shadow-lg">
+        <img src="img/rifqahmeilani.jpeg" class="w-full h-full object-cover" />
+      </div>
+
+      <h4 class="text-white font-semibold">Rifqah Meilani</h4>
+
+    </div>
+
+    <!-- ================= NUR FITRAH ================= -->
+    <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/5 border border-cyan-400/30 rounded-2xl p-6 text-center hover:scale-105 transition">
+
+      <div class="w-24 h-24 mx-auto rounded-full overflow-hidden border border-cyan-400/40 mb-4 shadow-lg">
+        <img src="img/fitrahnurdin.jpeg" class="w-full h-full object-cover" />
+      </div>
+
+      <h4 class="text-white font-semibold">Nur Fitrah Nurdin</h4>
+
+    </div>
+
+    <!-- ================= NUZUL ================= -->
+    <div class="bg-gradient-to-br from-pink-500/10 to-rose-500/5 border border-pink-400/30 rounded-2xl p-6 text-center hover:scale-105 transition">
+
+      <div class="w-24 h-24 mx-auto rounded-full overflow-hidden border border-pink-400/40 mb-4 shadow-lg">
+        <img src="img/nuzul.png" class="w-full h-full object-cover" />
+      </div>
+
+      <h4 class="text-white font-semibold">Nuzul Qur’ani</h4>
+
+    </div>
+
+    <!-- ================= PUTRI ================= -->
+    <div class="bg-gradient-to-br from-emerald-500/10 to-green-500/5 border border-emerald-400/30 rounded-2xl p-6 text-center hover:scale-105 transition">
+
+      <div class="w-24 h-24 mx-auto rounded-full overflow-hidden border border-emerald-400/40 mb-4 shadow-lg">
+        <img src="img/putri.jpeg" class="w-full h-full object-cover" />
+      </div>
+
+      <h4 class="text-white font-semibold">Putri Amelia Kartika K</h4>
+
+    </div>
+
+    <!-- ================= TRI ANNISA ================= -->
+    <div class="bg-gradient-to-br from-yellow-500/10 to-orange-500/5 border border-yellow-400/30 rounded-2xl p-6 text-center hover:scale-105 transition">
+
+      <div class="w-24 h-24 mx-auto rounded-full overflow-hidden border border-yellow-400/40 mb-4 shadow-lg">
+        <img src="img/nisa.jpeg" class="w-full h-full object-cover" />
+      </div>
+
+      <h4 class="text-white font-semibold">Tri Annisa Hisyam</h4>
+
+    </div>
+
+  </div>
+
+</div>
+    <!-- =========================
+         DOSEN
+    ========================= -->
+    <div class="mt-20 max-w-5xl mx-auto">
+
+      <h3 class="text-3xl font-bold text-white mb-10">
+        🎓 Dosen Pembimbing
+      </h3>
+
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <div class="bg-gradient-to-br from-violet-500/10 to-purple-500/5 border border-violet-400/30 rounded-2xl p-6 text-center">
+          <p class="text-white font-semibold">Sahlan Sidjara, S.Si., M.Si.</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/5 border border-cyan-400/30 rounded-2xl p-6 text-center">
+          <p class="text-white font-semibold">Dr. Hisyam Ihsan, M.Si.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="mt-16 text-gray-500 text-sm">
+      MathSmart SMP · Kampus Mengajar Berdampak 2026
+    </div>
+
+  </section>
+</section>
+<section id="page-kontak" class="page hidden">
+  <section class="py-20 px-6 bg-gray-950 text-gray-200">
+
+  <div class="max-w-6xl mx-auto text-center">
+
+    <!-- TITLE -->
+    <h2 class="text-4xl font-bold text-white mb-4">
+      📞 Kontak & Lokasi
+    </h2>
+
+    <p class="text-gray-400 mb-12 max-w-2xl mx-auto">
+      Hubungi kami atau kunjungi lokasi pengembangan MathSmart di Universitas Negeri Makassar.
+    </p>
+
+    <!-- =========================
+         GRID CONTACT + MAP
+    ========================= -->
+    <div class="grid md:grid-cols-2 gap-8 items-stretch">
+
+      <!-- ================= CONTACT CARD ================= -->
+      <div class="bg-gray-900 border border-gray-800 rounded-3xl p-8 text-left hover:border-violet-500 transition">
+
+        <h3 class="text-xl font-bold text-white mb-6">
+          📌 Informasi Kontak
+        </h3>
+
+        <div class="space-y-4 text-gray-300">
+
+          <div class="bg-gray-800/50 p-4 rounded-xl border border-gray-700">
+            <p class="text-sm text-gray-400">📧 Email</p>
+            <p class="font-semibold">mathsmartttt@gmail.com</p>
+          </div>
+
+          <div class="bg-gray-800/50 p-4 rounded-xl border border-gray-700">
+            <p class="text-sm text-gray-400">📱 Telepon</p>
+            <p class="font-semibold">0822 5178 0792</p>
+          </div>
+
+          <div class="bg-gray-800/50 p-4 rounded-xl border border-gray-700">
+            <p class="text-sm text-gray-400">📸 Instagram</p>
+            <p class="font-semibold">@kmb.smpn27makassar</p>
+          </div>
+
+          <div class="bg-gray-800/50 p-4 rounded-xl border border-gray-700">
+            <p class="text-sm text-gray-400">🏫 Alamat</p>
+            <p class="font-semibold">
+              Universitas Negeri Makassar, Parangtambung
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ================= MAP CARD ================= -->
+      <div class="bg-gray-900 border border-gray-800 rounded-3xl overflow-hidden hover:border-cyan-500 transition">
+
+        <div class="p-6 text-left">
+          <h3 class="text-xl font-bold text-white mb-2">
+            📍 Lokasi Kampus
+          </h3>
+          <p class="text-gray-400 text-sm">
+            Universitas Negeri Makassar - Parangtambung
+          </p>
+        </div>
+
+        <!-- GOOGLE MAPS -->
+        <iframe
+          class="w-full h-80"
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Universitas%20Negeri%20Makassar%20Parangtambung&output=embed">
+        </iframe>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+</section>
+ <section id="page-info" class="page hidden">
+  <section class="py-24 px-6 text-center">
+
+    <h2 class="text-4xl font-extrabold mb-6">
+      Informasi <span class="gradient-text">Sekolah</span>
+    </h2>
+
+    <p class="text-gray-400 mb-10">
+      Informasi lengkap mengenai sekolah dan pembimbing kegiatan.
+    </p>
+
+    <!-- FOTO SEKOLAH -->
+    <div class="max-w-3xl mx-auto mb-10">
+      <img src="img/sekolah.jpg" alt="SMP Negeri 27 Makassar"
+        class="rounded-2xl shadow-lg border border-gray-700 w-full object-cover">
+    </div>
+
+    <!-- DATA SEKOLAH -->
+    <div class="space-y-2 text-gray-300 mb-10">
+      <p><b>Sekolah:</b> SMP Negeri 27 Makassar</p>
+      <p><b>Alamat:</b> Jl. Dg. Tata Komp. Hartaco Indah No.99, Parang Tambung, Kec. Tamalate, Kota Makassar, Sulawesi Selatan 90224</p>
+      <p><b>Email:</b> smpnegeri27makassar2@email.com</p>
+      <p><b>Telepon:</b> 0852-9494-3692</p>
+      <p><b>Instagram:</b> @smpn27makassar.humas</p>
+    </div>
+
+    <!-- GOOGLE MAPS -->
+    <div class="max-w-3xl mx-auto mb-12">
+      <iframe 
+        src="https://www.google.com/maps?q=SMP+Negeri+27+Makassar&output=embed"
+        width="100%" height="300" style="border:0;"
+        allowfullscreen="" loading="lazy"
+        class="rounded-xl border border-gray-700">
+      </iframe>
+    </div>
+
+    <!-- KEPALA SEKOLAH -->
+    <div class="mb-8">
+      <h3 class="text-xl font-bold text-white mb-2">Kepala Sekolah</h3>
+      <p class="text-gray-300">Nurdin, S.Pd., S.H., M.Pd</p>
+    </div>
+
+    <!-- GURU PAMONG -->
+    <div>
+      <h3 class="text-xl font-bold text-white mb-4">Guru Pamong</h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-xl mx-auto">
+        <div class="info-card">Fatmawati Anas, S.Pd., M.Pd.</div>
+        <div class="info-card">Nurhudaya, S.Pd., M.M</div>
+        <div class="info-card">Mujahidah Usman, S.Pd</div>
+        <div class="info-card">Rusydah, S.Pd</div>
+      </div>
+    </div>
+
+  </section>
+</section>
+</section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-gray-800 py-12 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center font-bold text-lg">M</div>
+          <div>
+            <div class="font-bold">MathSmart SMP Negeri 27 Makassar</div>
+            <div class="text-sm text-gray-500">Portal Matematika Terpadu</div>
+          </div>
+        </div>
+        <div class="text-gray-500 text-sm text-center">
+          © 2026 MathSmart SMP · Dibuat dengan ❤️ untuk siswa Indonesia
+        </div>
+        <div class="flex gap-4 text-sm text-gray-400">
+          <a onclick="goToPage('page-tentang')" class="hover:text-white cursor-pointer">Tentang</a>
+<a onclick="goToPage('page-kontak')" class="hover:text-white cursor-pointer">Kontak</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+  <script src="js/data.js"></script>
+  <script src="js/materi.js"></script>
+  <script src="js/video.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/tug_of_war.js"></script>
+</body>
+</html>
